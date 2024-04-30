@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Pull&amp;Bear</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+/* reset */
+html,body { height:100%; }
+body,div,p,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,button,input { margin:0; padding:0; }
+h1,h2,h3,h4 { font-size:12px; }
+ul,li,ol { list-style:none; }
+img,fieldset,iframe { border:0; }
+img { vertical-align:top; }
+table { border-collapse:collapse; }
+
+
+/* base */
+body {
+	font-family:'Noto Sans KR';
+	font-size:16px; 
+	font-weight:400;
+	color:#333;
+}
+a { color:#333; text-decoration:none; }
+a:hover { color:yellow; } 
+.blind { position:absolute; top:-9999px; }
+
+.skip_navigation a { 
+	position:absolute; left:0px; top:-9999px; z-index:1001;
+	color:white; background:black; padding:5px;
+}
+.skip_navigation a:focus { top:0; }
+
+html { scroll-behavior:smooth; }
+
+
+
+/* layout */
+#header { 
+	position:fixed; left:0px; top:0px;
+	width:100%; z-index:1000;
+	background-color:rgba(0,0,0,0.8); 
+}
+#header .inner { position:relative; margin:0 auto; width:1370px; height:100px; /* border:5px dashed orange; */ }
+
+
+#visual { background-color:hotpink; }
+
+
+#container { /* border:5px dashed black; */ }
+
+#container #trend { background-color:#fafcf5; }
+#container #trend .inner { 
+	margin:0 auto; width:1370px; 
+	padding-top:118px; padding-bottom:calc(146px - 70px);
+	/* border:5px dashed blue; */ 
+}
+
+#container #magazine { background-color:#f4eddd; }
+#container #magazine .inner { 
+	margin:0 auto; width:1370px; 
+	padding-top:118px; padding-bottom:146px;
+	/* border:5px dashed skyblue; */ 
+}
+
+
+#container #social { background-color:#bccab4; }
+#container #social .inner { 
+	margin:0 auto; width:1370px; 
+	padding-top:118px; padding-bottom:146px;
+	/* border:5px dashed blue; */ 
+}
+
+
+#footer { background-color:#222; color:white; }
+#footer .inner { margin:0 auto; width:1370px; /* border:5px dashed white; */ }
+
+
+
+/* header */
+h1 { position:absolute; left:0px; top:39px; /* background:red; */ }
+.gnb { position:absolute; left:309px; top:45px; width:610px; height:16px; /* background:#0cc; */ }
+
+.gnb ul { display:flex; justify-content:space-between; }
+.gnb ul li { /* border:1px dashed blue; */ 
+	font-weight:400;
+	line-height:1em; 
+}
+.gnb ul li a { color:#fff; }
+.gnb ul li a:hover { color:yellow; }
+
+.util { 
+	display:flex;
+	justify-content:space-between;
+	position:absolute; right:0px; top:44px; 
+	width:175px; height:21px; 
+}
+.util li { /* border:1px solid skyblue; */ }
+
+.util #t1 {
+	border:0;
+	border-bottom:2px solid #c7c7c7;
+	background:none;
+	width:113px; height:19px;
+	outline:none;
+	color:white;
+}
+.util input { float:left; /* 폼요소간의 수직어긋남을 맞춤 */ }
+
+.util .icon { opacity:0.7; }
+.util .icon:hover { opacity:1; }
+
+
+
+/* visual */
+#visual img { width:100%; }
+
+
+
+/* container */
+#container h2 { 
+	padding-bottom:34px;
+	text-align:center;
+	font-size:18px;
+	line-height:1em;
+	letter-spacing:4px; /* 자간(글자사이 간격)*/
+}
+#container h2 span {
+	font-size:11px; 
+	letter-spacing:0px;
+	font-weight:400;
+
+	display:block; 
+	/* 인라인요소에는 width,height,padding-top/bottom 적용안기때문에
+	적용시키려면 display:inline-block (줄바꿈 없음)
+	또는 display:block (줄바꿈 있음)을 설정 */
+	padding-top:14px;
+}
+#container a:hover { color:#333; opacity:0.8; }
+
+
+/* container > trend */
+#trend ul { 
+	display:flex; /* 자식들이 가로배열됨 */
+	flex-wrap:wrap;
+	justify-content:space-between;
+}
+#trend ul li { text-align:center; /* border:1px solid blue; */ }
+#trend ul li p { padding-top:10px; padding-bottom:70px; }
+#trend ul li img { border-radius:50px; }
+
+
+/* container > magazine */
+#magazine ul {
+	display:flex; /*자식들을 가로배열*/
+	justify-content:space-between; /* 간격 일정 */
+}
+#magazine ul li { 
+	width:436px;  
+	background:white;
+	text-align:center;
+	/* border:3px dashed blue; */ 
+}
+#magazine ul li h3 { 
+	padding-top:35px;
+	padding-bottom:33px;
+	font-size:14px; 
+	line-height:1em; /* 1em=100% :줄간격이 글자사이즈와 같아짐 - 줄간격 초기화 */
+}
+#magazine ul li p { 
+	padding:0px 70px 30px 70px;
+}
+
+
+/* container > social */
+#social h2 { color:white; }
+#social .inner > ul { display:flex; justify-content:space-between; }
+#social ul li.youtube { 
+	width:808px; height:437px; 
+	background-color:black;
+}
+
+#social ul li.tabmenu { 
+	width:514px; height:437px; 
+	/* background-color:yellow; */
+}
+
+#social .tabmenu .tab_mn { display:flex; /* border:3px dashed red; */ }
+#social .tabmenu .tab_mn li { /* border:3px solid pink; */ }
+#social .tabmenu .tab_mn li a { 
+	display:block; 
+	/* a태그같은 인라인요소는 width/height 적용안되므로 블록요소로 변경 */
+	width:161px;
+	line-height:60px;
+	margin-right:1px;
+	text-align:center;
+	font-weight:900;
+	color:#bccab4;	
+	border-radius:47px 47px 0 0;
+	background-color:white;
+	/* border:2px dashed blue; */ 
+}
+#social .tabmenu .tab_mn li:nth-child(2) a { 
+	background-color:rgba(255,255,255,0.5);
+}
+
+#social .tabmenu .tab_con > li {
+	width:calc(514px - 45px - 45px);
+	height:331px /* 377-46 */;
+
+	padding-top:46px;
+	padding-left:45px; padding-right:45px;
+
+	border-radius:0 49px 0 49px;
+	/* border:3px dashed blue; */
+}
+
+#social .tabmenu .tab_con > li#con1 { 
+	background:white url(images/so_facebook.jpg) no-repeat right bottom; 
+}
+#social .tabmenu .tab_con > li#con2 {
+	display:none;
+	background:white url(images/so_twitter.jpg) no-repeat right bottom; 
+}
+
+
+#social .tabmenu .tab_con > li ul li {
+	/* border:1px dashed hotpink; */
+	margin-bottom:25px;
+}
+
+#social .tabmenu .tab_con > li ul li a {
+	color:#646c5f;
+	font-weight:300;
+	line-height:24px;
+}
+
+#social .tabmenu .tab_con > li ul li a span { 
+	display:block; /* 줄바꿈 */
+	font-size:14px;
+	font-weight:bold;
+}
+
+
+
+/* footer */
+.sitemap { 
+	display:flex; 
+	padding-top:83px;
+	padding-bottom:110px;
+	/* border:2px dashed red; */ 
+}
+.sitemap a { color:white; }
+.sitemap a:hover { color:yellow; }
+
+.sitemap div { flex:1; /* border:2px dashed yellow; */ }
+
+.sitemap div h3 { 
+	font-size:16px; 
+	font-weight:400; 
+	line-height:1em;
+	height:38px;
+}
+.sitemap div ul li {
+	font-size:14px;
+	line-height:1em;
+	height:30px;
+	/* border:1px dashed #555; */
+}
+.sitemap div.sm4 p {
+	font-size:14px; padding-bottom:42px;
+}
+
+
+.info ul {
+	display:flex;
+	justify-content:center;
+	padding-bottom:20px;
+}
+.info li {
+	width:90px;
+	text-align:center;
+}
+.info p {
+	text-align:center;
+	font-size:12px;
+	color:#b4b4b4;
+	line-height:14px;
+	font-weight:500;
+}
+.info div { text-align:center; padding-top:26px; padding-bottom:90px; }
+
+.top { position:fixed; right:33px; bottom:33px; opacity:.9; }
+</style>
+</head>
+<body>
+
+
+<!--
+웹접근성
+	1. 이미지 alt
+	2. 숨은 타이틀이나 
+	3. skip내비게이션 / 키보드 접근성
+	4. 배경과 글자색 대비 1:4.5
+	5. 색으로 구별되는 컨텐츠는 무늬로도 구별
+	6. 비디오/오디오 넣을때 자동재생 불가
+-->
+
+
+<div class="skip_navigation">
+	<a href="#container">본문 바로가기</a>
+	<a href="#footer">하단 바로가기</a>
+</div>
+
+
+<header id="header">
+	<div class="inner">
+
+		<h1><a href="#"><img src="images/logo.png" alt="P&amp;B"></a></h1>
+
+		<h2 class="blind">주요메뉴</h2>
+		<nav class="gnb">
+			<ul>
+				<li><a href="#">여성</a></li>
+				<li><a href="#">남성</a></li>
+				<li><a href="#">아동</a></li>
+				<li><a href="#">Sale</a></li>
+			</ul>
+		</nav>
+
+		<ul class="util">
+			<li>
+				<form action="#">
+					<fieldset>
+						<legend class="blind">통합검색</legend>
+
+						<label for="t1" class="blind">검색어 입력</label>
+						<input type="text" id="t1">
+
+						<input type="image" src="images/search.svg" alt="검색" class="icon">
+					</fieldset>
+				</form>
+			</li>
+
+			<li><a href="#"><img src="images/favorite.svg" width="19" alt="찜" class="icon"></a></li>
+		</ul>
+
+	</div>
+</header>
+
+
+
+<div id="visual">
+	<img src="images/visual.jpg" alt="Feeling as fresh as a daisy - 봄에 입고싶은 옷을 만나보세요">
+</div>
+
+
+
+<div id="container">
+	<section id="trend">
+		<div class="inner">
+			<h2>
+				TREND
+				<span>A WORLD OF INSPIRATION</span>
+			</h2>
+			<ul>
+				<li>
+					<a href="#">
+						<img src="images/tr1.jpg" alt="여성">
+					</a>					
+					<p>WOMEN</p>
+				</li>
+
+				<li>
+					<a href="#">
+						<img src="images/tr2.jpg" alt="남성">
+					</a>					
+					<p>MEN</p>
+				</li>
+
+				<li>
+					<a href="#">
+						<img src="images/tr3.jpg" alt="아동">
+					</a>					
+					<p>KIDS</p>
+				</li>
+
+				<li>
+					<a href="#">
+						<img src="images/tr4.jpg" alt="스포츠">
+					</a>					
+					<p>SPORT</p>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+
+	<section id="magazine">
+		<div class="inner">
+			<h2>
+				MAGAZINE 
+				<span>A WORLD OF INSPIRATION</span>
+			</h2>
+
+			<ul>
+				<li>
+					<a href="#">
+						<img src="images/ma1.jpg" alt="inside P&amp;B">
+						<h3>INSIDE P&amp;B</h3>
+						<p>인도네시아 섬의 플라스틱 폐기물을 데일 패션으로 바꾸고 있습니다</p>
+					</a>
+				</li>
+
+				<li>
+					<a href="#">
+						<img src="images/ma2.jpg" alt="inside P&amp;B">
+						<h3>INSIDE P&amp;B</h3>
+						<p>나만의 스타일을 나누세요</p>
+					</a>
+				</li>
+
+				<li>
+					<a href="#">
+						<img src="images/ma3.jpg" alt="inside P&amp;B">
+						<h3>INSIDE P&amp;B</h3>
+						<p>P&amp;B 베스트 스타일링 방법</p>
+					</a>
+				</li>
+
+
+			</ul>
+		</div>
+	</section>
+
+
+	<section id="social">
+		<div class="inner">
+			<h2>
+				SOCIAL MEDIA 
+				<span>CAMPAIN &amp; NEWS</span>
+			</h2>
+
+			<ul>
+
+				<li class="youtube">
+					
+					<iframe width="808" height="437" src="https://www.youtube.com/embed/oBxKba1pIV8" title="PULL &amp; BEAR Campaign 2023 - Fashion Channel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+				</li>
+
+				<li class="tabmenu">
+
+					<ul class="tab_mn">
+						<li><a href="#con1" class="mn">facebook</a></li>
+						<li><a href="#con2" class="mn">twitter</a></li>
+					</ul>
+
+					<ul class="tab_con">
+						<li id="con1">
+							<ul>
+								<li><a href="#">아웃도어 인테리어로 야외 활동에 집의 편안함을 옮겨보세요 ..	<span>2025-05-15</span></a></li>
+								<li><a href="#">완벽한 피크닉이나 비치에서의 길고 느긋한 하루를 위해 모든 아이템이 .. <span>2025-05-15</span></a></li>
+								<li><a href="#">아웃도어 인테리어로 야외 활동에 집의 편안함을 옮겨보세요 ..	<span>2025-05-15</span></a></li>
+							</ul>
+						</li>
+
+						<li id="con2">
+							<ul>
+								<li><a href="#">절친과의 저녁식사든 공식 만찬이든 또는 가족과의 아늑한 밤이든 부엌 인테리어에 필요한 ..	<span>2025-05-15</span></a></li>
+								<li><a href="#">완벽한 피크닉이나 비치에서의 길고 느긋한 하루를 위해 모든 아이템이 .. <span>2025-05-15</span></a></li>
+								<li><a href="#">아웃도어 인테리어로 야외 활동에 집의 편안함을 옮겨보세요 ..	<span>2025-05-15</span></a></li>
+							</ul>
+						</li>
+					</ul>					
+
+				</li>
+
+			</ul>
+		</div>
+	</section>
+
+</div>
+
+
+<footer id="footer">
+	<div class="inner">
+		<div class="sitemap">
+			<h2 class="blind">사이트맵</h2>
+
+			<div class="sm1">
+				<h3>카테고리</h3>
+				<ul>
+					<li><a href="#">여성</a></li>
+					<li><a href="#">남성</a></li>
+					<li><a href="#">신생아/유아</a></li>
+					<li><a href="#">아동</a></li>
+					<li><a href="#">P&amp;B HOME</a></li>
+					<li><a href="#">Sale</a></li>
+				</ul>
+			</div>
+
+			<div class="sm2">
+				<h3>카테고리</h3>
+				<ul>
+					<li><a href="#">여성</a></li>
+					<li><a href="#">남성</a></li>
+					<li><a href="#">신생아/유아</a></li>
+					<li><a href="#">아동</a></li>
+					<li><a href="#">P&amp;B HOME</a></li>
+					<li><a href="#">Sale</a></li>
+				</ul>
+			</div>
+
+			<div class="sm3">
+				<h3>카테고리</h3>
+				<ul>
+					<li><a href="#">여성</a></li>
+					<li><a href="#">남성</a></li>
+					<li><a href="#">신생아/유아</a></li>
+					<li><a href="#">아동</a></li>
+					<li><a href="#">P&amp;B HOME</a></li>
+					<li><a href="#">Sale</a></li>
+				</ul>
+			</div>
+
+			<div class="sm4">
+				<h3>지금 멤버십에 가입하세요!</h3>
+				<p>지금 가입하시고 10% 할인받으세요</p>				
+
+				<ul>
+					<li><a href="#">지금 가입하기</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div class="info">
+			<h2 class="blind">회사 기타 정보</h2>
+			
+			<ul>
+				<li><a href="#"><img src="images/sns1.gif" alt="페이스북"></a></li>
+				<li><a href="#"><img src="images/sns2.gif" alt="트위터"></a></li>
+				<li><a href="#"><img src="images/sns3.gif" alt="인스타그램"></a></li>
+				<li><a href="#"><img src="images/sns4.gif" alt="유튜브"></a></li>
+				<li><a href="#"><img src="images/sns5.gif" alt="핀테레스트"></a></li>
+			</ul>
+
+			<p>The content of this site is copyright-protected and is the property of Pull & Bear. Pull & Bear's business<br>
+			concept is to offer fashion and quality at the best price in a sustainable way. Pull & Bear has since it was founded in<br>
+			1991 grown into one of the world's leading fashion companies.</p>
+
+			<div><img src="images/f_logo.gif" alt="P&amp;B"></div>
+		</div>
+
+	</div>
+
+	<a href="#" class="top"><img src="images/top.png" alt="top:위로가기"></a>
+
+</footer>
+
+
+</body>
+</html>
+
